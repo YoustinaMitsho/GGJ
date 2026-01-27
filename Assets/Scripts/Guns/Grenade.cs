@@ -12,6 +12,8 @@ public class Grenade : MonoBehaviour
     [SerializeField] GameObject explosion_effect;
     [SerializeField] int power = 10;
     [SerializeField] float radius = 5f;
+    [SerializeField] int enemyDamage = 100;
+    [SerializeField] float damageDelay = 0.8f;
 
     void Start() => countdown = timer;
 
@@ -52,6 +54,21 @@ public class Grenade : MonoBehaviour
                 float effect = Mathf.Clamp01(1 - (distance / 5f));
                 agent.Move(pushDir * 10f * effect);
             }
+            hit.TryGetComponent<EnemyHealth>(out EnemyHealth enemyHealth);
+            if (enemyHealth != null)
+            {
+                StartCoroutine(ApplyDamage());
+                enemyHealth.TakeDamage(enemyDamage);
+            }
+            else
+            {
+                Debug.Log("No EnemyHealth component found on " + hit.name);
+            }
         }
+    }
+
+    IEnumerator ApplyDamage()
+    {
+        yield return new WaitForSeconds(damageDelay);
     }
 }
