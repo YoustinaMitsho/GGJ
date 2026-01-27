@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 7004412317858861738}
   - component: {fileID: 5018483509638239424}
   - component: {fileID: 8994938943130985256}
+  - component: {fileID: 350546509239421586}
   m_Layer: 3
   m_Name: Red
   m_TagString: Enemy
@@ -164,6 +165,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyColor: 0
   maxHealth: 100
+--- !u!114 &350546509239421586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 654505810672655329}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c707c3235af9324ead9bf8923398dbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maskGroups: 
+  Layer: 01000001
 --- !u!1 &7532531038815112946
 GameObject:
   m_ObjectHideFlags: 0

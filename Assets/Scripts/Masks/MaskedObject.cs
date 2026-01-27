@@ -7,11 +7,11 @@ public class MaskedObject : MonoBehaviour
 {
 
     [HideInInspector] public List<bool> maskGroups;
-    public List<bool> Layer;    
-    void Start() 
+    public List<bool> Layer;
+    void Start()
     {
         maskGroups = new List<bool>(Layer.Count);
-        for(int i = 0; i < Layer.Count; i++)
+        for (int i = 0; i < Layer.Count; i++)
         {
             maskGroups.Add(false);
         }
@@ -25,7 +25,7 @@ public class MaskedObject : MonoBehaviour
     bool shouldRender = true;
     private void CollidersControl()
     {
-        activeMask = -1; 
+        activeMask = -1;
         for (int i = 0; i < maskGroups.Count; i++)
         {
             if (maskGroups[i])
@@ -34,7 +34,7 @@ public class MaskedObject : MonoBehaviour
                 break;
             }
         }
-        if(activeMask == -1)
+        if (activeMask == -1)
         {
             shouldRender = true;
         }
@@ -42,6 +42,6 @@ public class MaskedObject : MonoBehaviour
         {
             shouldRender = (activeMask < Layer.Count && Layer[activeMask]);
         }
-        gameObject.GetComponent<BoxCollider>().enabled = shouldRender;
+        gameObject.GetComponent<Collider>().enabled = shouldRender;
     }
 }
