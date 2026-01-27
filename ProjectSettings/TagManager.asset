@@ -6,6 +6,7 @@ TagManager:
   tags:
   - CinemachineTarget
   - Enemy
+  - Mask
   layers:
   - Default
   - TransparentFX
@@ -13,9 +14,9 @@ TagManager:
   - Enemy
   - Water
   - UI
-  - 
-  - 
-  - 
+  - MiniMap
+  - Environment
+  - Mask
   - 
   - 
   - 

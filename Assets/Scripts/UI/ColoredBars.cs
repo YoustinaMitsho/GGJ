@@ -45,6 +45,16 @@ public class ColoredBars : MonoBehaviour
         }
     }
 
+    public void IncreaseBar(EnemyColor color, int increaseValue)
+    {
+        Image bar = DecideColor(color);
+        if (bar != null)
+        {
+            bar.fillAmount += (float)increaseValue / maxEnemyCount;
+            bar.fillAmount = Mathf.Min(bar.fillAmount, 1f);
+        }
+    }
+
     public void DecreaseBar(EnemyColor color)
     {
         Image bar = DecideColor(color);
