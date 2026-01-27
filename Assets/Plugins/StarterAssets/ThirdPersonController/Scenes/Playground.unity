@@ -1730,6 +1730,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1e018cd22897b741a58ff2a657b9f34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &1164138152 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5239100585477912294, guid: f2e0b7ae4dae8cf44955bccd3512b213, type: 3}
+  m_PrefabInstance: {fileID: 2100429977}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1174662607
 GameObject:
   m_ObjectHideFlags: 0
@@ -4601,8 +4606,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f11b6f78ef0ed0144bc307d9d47b0fd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabToThrow: {fileID: -5906897817942330540, guid: 216ec6e5fef3e254d86b21071e614d66, type: 3}
-  throwForce: 10
+  cam: {fileID: 1164138152}
+  attackpoint: {fileID: 1541864116}
+  object_to_throw: {fileID: 1415556611663978, guid: 216ec6e5fef3e254d86b21071e614d66, type: 3}
+  throw_force: 3
+  raise_force: 5
 --- !u!1 &2100719491 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8345070699079395523, guid: 09aade0ecefd01e4b8f7661acf64f5c2, type: 3}

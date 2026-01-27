@@ -4,10 +4,15 @@ using UnityEngine;
 
 public class ThrowGrenade : MonoBehaviour
 {
-    public Rigidbody prefabToThrow;
-    public float throwForce = 100f;
+    [Header("Refrences")]
+    public Transform cam;
+    public Transform attackpoint;
+    public GameObject object_to_throw;
+    public float throw_force = 10;
+    public float raise_force = 10;
 
-    void Update()
+
+    private void Update()
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
@@ -15,14 +20,11 @@ public class ThrowGrenade : MonoBehaviour
         }
     }
 
-    void Throw()
+    private void Throw()
     {
-        Rigidbody rb = Instantiate(
-            prefabToThrow,
-            transform.position,
-            transform.rotation
-        );
-
-        rb.AddForce(transform.forward * throwForce, ForceMode.Impulse);
+        GameObject projectile = Instantiate(object_to_throw, attackpoint.position, cam.rotation);
+        Rigidbody rb = projectile.GetComponent<Rigidbody>();
+        Vector3 throw_direction = cam.forward * throw_force + cam.up * raise_force;
+        rb.AddForce(throw_direction, ForceMode.Impulse);
     }
 }

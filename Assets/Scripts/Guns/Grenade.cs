@@ -23,35 +23,35 @@ public class Grenade : MonoBehaviour
 
     void Explode()
     {
+        if (has_exploded) return;
         has_exploded = true;
 
-        // Visuals
         if (explosion_effect != null)
         {
-            GameObject particle = Instantiate(explosion_effect, transform.position, transform.rotation);
-            Destroy(particle, 1f);
+            GameObject particule = Instantiate(explosion_effect, transform.position, transform.rotation);
+            Destroy(particule, 1f);
         }
 
-        // Physics Logic
-        Collider[] colliders = Physics.OverlapSphere(transform.position, radius);
-        foreach (Collider col in colliders)
+        Destroy(gameObject);
+
+        Collider[] colliders = Physics.OverlapSphere(transform.position, 5f);
+
+        foreach (Collider hit in colliders)
         {
-            // Talk to the new script on the enemy
-            EnemyKnockback enemy = col.GetComponent<EnemyKnockback>();
-            if (enemy != null)
+            Rigidbody rb = hit.GetComponent<Rigidbody>();
+            if (rb != null)
             {
-                Vector3 pushDir = col.transform.position - transform.position;
-                pushDir.y = 0;
+                rb.AddExplosionForce(10f, transform.position, 5f, 1f, ForceMode.Impulse);
+            }
 
-                float distance = pushDir.magnitude;
-                float falloff = 1 - (distance / radius);
-                Vector3 finalVelocity = pushDir.normalized * power * falloff;
-
-                enemy.ApplyKnockback(finalVelocity);
+            NavMeshAgent agent = hit.GetComponent<NavMeshAgent>();
+            if (agent != null)
+            {
+                Vector3 pushDir = (hit.transform.position - transform.position).normalized;
+                float distance = Vector3.Distance(hit.transform.position, transform.position);
+                float effect = Mathf.Clamp01(1 - (distance / 5f));
+                agent.Move(pushDir * 10f * effect);
             }
         }
-
-        // Now it is safe to destroy the grenade
-        Destroy(gameObject);
     }
 }
