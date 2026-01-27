@@ -14,9 +14,10 @@ GameObject:
   - component: {fileID: 1213422892930020126}
   - component: {fileID: 7004412317858861738}
   - component: {fileID: 5018483509638239424}
+  - component: {fileID: 8994938943130985256}
   m_Layer: 3
   m_Name: Red
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -146,3 +147,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fortress: {fileID: 0}
+--- !u!114 &8994938943130985256
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 654505810672655329}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cab6cd942fa977444a5d156d2f3b04f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
