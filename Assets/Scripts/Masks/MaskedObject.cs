@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
+[RequireComponent(typeof(MeshRenderer))]
 public class MaskedObject : MonoBehaviour
 {
-
     [HideInInspector] public List<bool> maskGroups;
     public List<bool> Layer;
     void Start()
@@ -42,6 +42,6 @@ public class MaskedObject : MonoBehaviour
         {
             shouldRender = (activeMask < Layer.Count && Layer[activeMask]);
         }
-        gameObject.GetComponent<Collider>().enabled = shouldRender;
+        gameObject.GetComponent<MeshRenderer>().enabled = shouldRender;
     }
 }

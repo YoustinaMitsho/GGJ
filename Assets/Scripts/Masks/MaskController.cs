@@ -10,10 +10,10 @@ public class MaskController : MonoBehaviour
 {
     public static MaskController Instance { get; private set; }
     public List<GameObject> maskCameras;
-    private int currentIndex = -1;
-    public bool isColliderMasked;
-    public InputAction cycleMask;
     public List<GameObject> masks = new List<GameObject>();
+    public InputAction cycleMask;
+    public bool isColliderMasked;
+    private int currentIndex = -1;
     private List<MaskedObject> allMaskedObjects = new List<MaskedObject>();
     void Awake()
     {
@@ -24,19 +24,19 @@ public class MaskController : MonoBehaviour
 
     void Update()
     {
-       CycleMask();
+        CycleMask();
     }
 
     void CycleMask()
     {
         if (cycleMask.WasPressedThisFrame())
         {
-            currentIndex = (currentIndex + 1) % maskCameras.Count;   
-            foreach(MaskedObject maskedObj in allMaskedObjects)
+            currentIndex = (currentIndex + 1) % maskCameras.Count;
+            foreach (MaskedObject maskedObj in allMaskedObjects)
             {
-                for(int i = 0; i < maskedObj.maskGroups.Count; i++)
+                for (int i = 0; i < maskedObj.maskGroups.Count; i++)
                 {
-                    if(i == currentIndex && !isColliderMasked)
+                    if (i == currentIndex && !isColliderMasked)
                     {
                         maskedObj.maskGroups[i] = true;
                         masks[i].gameObject.SetActive(true);
@@ -47,8 +47,8 @@ public class MaskController : MonoBehaviour
                         masks[i].gameObject.SetActive(false);
                     }
                 }
-            }            
-            for(int i = 0; i < maskCameras.Count; i++)
+            }
+            for (int i = 0; i < maskCameras.Count; i++)
             {
                 maskCameras[i].SetActive(i == currentIndex);
             }
