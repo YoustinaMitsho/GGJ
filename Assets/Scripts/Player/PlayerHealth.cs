@@ -10,9 +10,7 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] int maxHealth = 100;
     [SerializeField] int damage = 10;
     [SerializeField] Image healthBar;
-    [SerializeField] float intensity = 1f;
-    [SerializeField] PostProcessVolume volume;
-    [SerializeField] Vignette vignette;
+    [SerializeField] Image vignette;
     int currentHealth;
     void Awake()
     {
@@ -22,20 +20,7 @@ public class PlayerHealth : MonoBehaviour
     {
         currentHealth = maxHealth;
         healthBar.fillAmount = 1f;
-
-        if (volume == null)
-        {
-            volume = GetComponentInChildren<PostProcessVolume>();
-        }
-
-        if (volume != null)
-        {
-            if (volume.profile.TryGetSettings<Vignette>(out vignette))
-            {
-                vignette.enabled.Override(false);
-                vignette.intensity.Override(0f);
-            }
-        }
+        vignette.color = Color.clear;
     }
     public void TakeDamage(int damage)
     {
@@ -63,23 +48,27 @@ public class PlayerHealth : MonoBehaviour
 
     private IEnumerator TakeDamageEffect()
     {
-        float duration = 1.0f;
+        float duration = 0.5f;
         float elapsed = 0f;
-
-        vignette.enabled.Override(true);
-        vignette.intensity.Override(0.4f);
-
-        yield return new WaitForSeconds(0.4f);
+        Color originalColor = vignette.color;
+        Color targetColor = Color.red;
 
         while (elapsed < duration)
         {
+            vignette.color = Color.Lerp(originalColor, targetColor, elapsed / duration);
             elapsed += Time.deltaTime;
-
-            float newIntensity = Mathf.Lerp(0.4f, 0f, elapsed / duration);
-            vignette.intensity.Override(newIntensity);
             yield return null;
         }
 
-        vignette.enabled.Override(false);
+        elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            vignette.color = Color.Lerp(targetColor, originalColor, elapsed / duration);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        vignette.color = originalColor;
     }
 }

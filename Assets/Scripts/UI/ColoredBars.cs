@@ -79,48 +79,4 @@ public class ColoredBars : MonoBehaviour
                 return null;
         }
     }
-
-
-
-    // testing functions
-
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            IncreaseBar(EnemyColor.Red);
-        }
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            IncreaseBar(EnemyColor.Green);
-        }
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            IncreaseBar(EnemyColor.Blue);
-        }
-    }
-    public void TestIncreaseRed()
-    {
-        IncreaseBar(EnemyColor.Red);
-    }
-    public void TestIncreaseGreen()
-    {
-        IncreaseBar(EnemyColor.Green);
-    }
-    public void TestIncreaseBlue()
-    {
-        IncreaseBar(EnemyColor.Blue);
-    }
-    public void TestDecreaseRed()
-    {
-        DecreaseBar(EnemyColor.Red);
-    }
-    public void TestDecreaseGreen()
-    {
-        DecreaseBar(EnemyColor.Green);
-    }
-    public void TestDecreaseBlue()
-    {
-        DecreaseBar(EnemyColor.Blue);
-    }
 }
