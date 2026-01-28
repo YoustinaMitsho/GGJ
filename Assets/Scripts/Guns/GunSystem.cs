@@ -103,11 +103,16 @@ public class GunSystem : MonoBehaviour
 
         //ShakeCamera
         if (camShake != null)
-            StartCoroutine(camShake.Shake(camShakeMagnitude, camShakeDuration));
-
+        {
+            StartCoroutine(camShake.Shake(camShakeDuration, camShakeMagnitude));
+        }
+        else
+        {
+            Debug.LogError("CamShake not assigned!");
+        }
 
         //Graphics
-        Instantiate(bulletHoleGraphic, rayHit.point, Quaternion.LookRotation(rayHit.normal));
+        //Instantiate(bulletHoleGraphic, rayHit.point, Quaternion.LookRotation(rayHit.normal));
         //Instantiate(muzzleFlash, attackPoint.position, Quaternion.identity);
         GameObject flash = Instantiate(muzzleFlash, attackPoint.position,
                               attackPoint.rotation, attackPoint);

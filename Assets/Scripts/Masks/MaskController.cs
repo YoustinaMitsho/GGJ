@@ -37,23 +37,25 @@ public class MaskController : MonoBehaviour
         if (cycleMask.WasPressedThisFrame())
         {
             allMaskedObjects = new List<MaskedObject>(FindObjectsByType<MaskedObject>(0));
+
             currentIndex = (currentIndex + 1) % maskCameras.Count;
+
+            // ✅ ALWAYS switch masks visuals (even if no enemies exist)
+            for (int i = 0; i < masks.Count; i++)
+            {
+                masks[i].gameObject.SetActive(i == currentIndex);
+            }
+
+            // ✅ Update masked objects if any exist
             foreach (MaskedObject maskedObj in allMaskedObjects)
             {
                 for (int i = 0; i < maskedObj.maskGroups.Count; i++)
                 {
-                    if (i == currentIndex && !isColliderMasked)
-                    {
-                        maskedObj.maskGroups[i] = true;
-                        masks[i].gameObject.SetActive(true);
-                    }
-                    else
-                    {
-                        maskedObj.maskGroups[i] = false;
-                        masks[i].gameObject.SetActive(false);
-                    }
+                    maskedObj.maskGroups[i] = (i == currentIndex && !isColliderMasked);
                 }
             }
+
+            // Cameras
             for (int i = 0; i < maskCameras.Count; i++)
             {
                 maskCameras[i].SetActive(i == currentIndex);

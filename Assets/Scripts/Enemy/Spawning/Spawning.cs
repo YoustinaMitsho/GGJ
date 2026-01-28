@@ -32,6 +32,7 @@ public class Spawning : MonoBehaviour
         while (currentEnemyCount < maxEnemies)
         {
             Spawn(spa);
+            MaskController.Instance.HasSpawnedSmth();
             yield return new WaitForSeconds(cooldown);
         }
 
