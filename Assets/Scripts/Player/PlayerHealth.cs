@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
@@ -15,6 +16,9 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] Camera playerCamera;
     [SerializeField] AudioSource hitsound;
     [SerializeField] GameObject canvas;
+    [SerializeField] TextMeshProUGUI currPlayer;
+    [SerializeField] TextMeshProUGUI currScore;
+
     int currentHealth;
     bool isDead = false;
     void Awake()
@@ -94,6 +98,7 @@ public class PlayerHealth : MonoBehaviour
             gameOverScreen.SetActive(false);
         }
         //gameOverScreen.SetActive(false);
+        Manager.instance.UpdateHighestScore(currPlayer.text, int.Parse(currScore.text));
         Destroy(canvas);
         UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex - 1);
     }
