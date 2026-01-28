@@ -1567,11 +1567,7 @@ MonoBehaviour:
   - {fileID: 218493889}
   - {fileID: 1646900523}
   - {fileID: 1164138143}
-  masks:
-  - {fileID: 110524174}
-  - {fileID: 1702759112}
-  - {fileID: 1969102568}
-  - {fileID: 413098643}
+  isColliderMasked: 0
   cycleMask:
     m_Name: Cycle Mask
     m_Type: 0
@@ -1589,7 +1585,11 @@ MonoBehaviour:
       m_Action: Cycle Mask
       m_Flags: 0
     m_Flags: 0
-  isColliderMasked: 0
+  masks:
+  - {fileID: 110524174}
+  - {fileID: 1702759112}
+  - {fileID: 1969102568}
+  - {fileID: 413098643}
 --- !u!4 &1060168066
 Transform:
   m_ObjectHideFlags: 0

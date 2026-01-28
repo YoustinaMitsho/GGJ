@@ -10,10 +10,10 @@ public class MaskController : MonoBehaviour
 {
     public static MaskController Instance { get; private set; }
     public List<GameObject> maskCameras;
-    public List<GameObject> masks = new List<GameObject>();
-    public InputAction cycleMask;
-    public bool isColliderMasked;
     private int currentIndex = -1;
+    public bool isColliderMasked;
+    public InputAction cycleMask;
+    public List<GameObject> masks = new List<GameObject>();
     private List<MaskedObject> allMaskedObjects = new List<MaskedObject>();
     void Awake()
     {
@@ -27,10 +27,16 @@ public class MaskController : MonoBehaviour
         CycleMask();
     }
 
+    public void HasSpawnedSmth()
+    {
+        allMaskedObjects = new List<MaskedObject>(FindObjectsByType<MaskedObject>(0));
+    }
+
     void CycleMask()
     {
         if (cycleMask.WasPressedThisFrame())
         {
+            allMaskedObjects = new List<MaskedObject>(FindObjectsByType<MaskedObject>(0));
             currentIndex = (currentIndex + 1) % maskCameras.Count;
             foreach (MaskedObject maskedObj in allMaskedObjects)
             {
@@ -55,4 +61,3 @@ public class MaskController : MonoBehaviour
         }
     }
 }
-
