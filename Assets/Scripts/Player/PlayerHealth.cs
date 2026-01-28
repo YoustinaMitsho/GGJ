@@ -11,10 +11,13 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] int damage = 10;
     [SerializeField] Image healthBar;
     [SerializeField] Image vignette;
+    [SerializeField] GameObject gameOverScreen;
+    [SerializeField] Camera playerCamera;
     int currentHealth;
     void Awake()
     {
-        Time.timeScale = 1f;
+        //Time.timeScale = 1f;
+        gameOverScreen.SetActive(false);
     }
     void Start()
     {
@@ -34,7 +37,12 @@ public class PlayerHealth : MonoBehaviour
     void Die()
     {
         Debug.Log("Player has died.");
-        Time.timeScale = 0f;
+        Cursor.lockState = CursorLockMode.None;
+        playerCamera.GetComponent<FirstPersonLook>().enabled = false;
+        GetComponent<FirstPersonMovement>().enabled = false;
+        StartCoroutine(GameOverDelay());
+        gameOverScreen.SetActive(true);
+        //Time.timeScale = 0f;
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -70,5 +78,11 @@ public class PlayerHealth : MonoBehaviour
         }
 
         vignette.color = originalColor;
+    }
+
+    IEnumerator GameOverDelay()
+    {
+        yield return new WaitForSeconds(2f);
+        SceneChanger.instance.ChangeScene();
     }
 }
