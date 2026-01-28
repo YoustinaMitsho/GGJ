@@ -7,6 +7,7 @@ public class EnemyHealth : MonoBehaviour
 {
     [SerializeField] EnemyColor enemyColor;
     [SerializeField] int maxHealth = 100;
+    [SerializeField] AudioSource deathSound;
     int currentHealth;
 
     public TMP_Text score;
@@ -14,19 +15,16 @@ public class EnemyHealth : MonoBehaviour
     public TMP_Text highest_scorer;
 
 
+
     void Awake()
     {
         score = GameObject.Find("Current_Score").GetComponent<TMP_Text>();
     }
 
-    private void Update()
-    {
-        
-    }
-
     void Start()
     {
         currentHealth = maxHealth;
+        deathSound = GetComponent<AudioSource>();
     }
 
     public void TakeDamage(int damage)
@@ -35,7 +33,7 @@ public class EnemyHealth : MonoBehaviour
 
         if (currentHealth <= 0)
         {
-            UpdateScore(10); 
+            UpdateScore(10);
             Die();
         }
     }
@@ -67,13 +65,14 @@ public class EnemyHealth : MonoBehaviour
         else
         {
             Debug.LogWarning("ScoreText contained invalid number: " + score.text);
-            score.text = pointsToAdd.ToString(); // reset to points if invalid
+            score.text = pointsToAdd.ToString();
         }
     }
 
     void Die()
     {
         ColoredBars.instance.IncreaseBar(enemyColor);
+        deathSound.Play();
         Destroy(gameObject);
     }
 }

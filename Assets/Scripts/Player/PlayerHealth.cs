@@ -13,6 +13,7 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] Image vignette;
     [SerializeField] GameObject gameOverScreen;
     [SerializeField] Camera playerCamera;
+    [SerializeField] AudioSource hitsound;
     int currentHealth;
     void Awake()
     {
@@ -29,6 +30,7 @@ public class PlayerHealth : MonoBehaviour
     {
         currentHealth -= damage;
         healthBar.fillAmount = (float)currentHealth / maxHealth;
+        hitsound.Play();
         if (currentHealth <= 0)
         {
             Die();

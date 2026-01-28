@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,6 +16,7 @@ public class Grenade : MonoBehaviour
     [SerializeField] int enemyDamage = 100;
     [SerializeField] float damageDelay = 0.8f;
     [SerializeField] CamShake camShake;
+    public AudioSource explosionSound;
 
     void Start()
     {
@@ -25,7 +27,10 @@ public class Grenade : MonoBehaviour
     void Update()
     {
         countdown -= Time.deltaTime;
-        if (countdown <= 0 && !has_exploded) Explode();
+        if (countdown <= 0 && !has_exploded)
+        {
+            Explode();
+        }
     }
 
     void Explode()
@@ -76,5 +81,10 @@ public class Grenade : MonoBehaviour
     IEnumerator ApplyDamage()
     {
         yield return new WaitForSeconds(damageDelay);
+    }
+
+    public void PlayExplosionSound()
+    {
+        explosionSound.Play();
     }
 }

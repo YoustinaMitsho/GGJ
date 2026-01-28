@@ -26,5 +26,12 @@ public class ThrowGrenade : MonoBehaviour
         Rigidbody rb = projectile.GetComponent<Rigidbody>();
         Vector3 throw_direction = cam.forward * throw_force + cam.up * raise_force;
         rb.AddForce(throw_direction, ForceMode.Impulse);
+        StartCoroutine(DelaySound(projectile));
+    }
+
+    IEnumerator DelaySound(GameObject projectile)
+    {
+        yield return new WaitForSeconds(0.25f);
+        projectile.GetComponent<Grenade>().PlayExplosionSound();
     }
 }

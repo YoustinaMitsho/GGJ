@@ -26,6 +26,7 @@ public class GunSystem : MonoBehaviour
     //Graphics
     public GameObject muzzleFlash, bulletHoleGraphic;
     public LineRenderer tracer;
+    public AudioSource audioSource;
 
     public CamShake camShake;
     public float camShakeMagnitude, camShakeDuration;
@@ -99,6 +100,7 @@ public class GunSystem : MonoBehaviour
             Instantiate(bulletHoleGraphic,
                 rayHit.point + rayHit.normal * 0.01f,
                 Quaternion.LookRotation(rayHit.normal));
+            audioSource.Play();
         }
 
         //ShakeCamera

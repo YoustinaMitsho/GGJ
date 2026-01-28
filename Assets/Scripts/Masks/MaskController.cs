@@ -13,6 +13,7 @@ public class MaskController : MonoBehaviour
     private int currentIndex = -1;
     public bool isColliderMasked;
     public InputAction cycleMask;
+    public AudioSource maskSwitchSound;
     public List<GameObject> masks = new List<GameObject>();
     private List<MaskedObject> allMaskedObjects = new List<MaskedObject>();
     void Awake()
@@ -39,11 +40,13 @@ public class MaskController : MonoBehaviour
             allMaskedObjects = new List<MaskedObject>(FindObjectsByType<MaskedObject>(0));
 
             currentIndex = (currentIndex + 1) % maskCameras.Count;
+            maskSwitchSound.Play();
 
             // ✅ ALWAYS switch masks visuals (even if no enemies exist)
             for (int i = 0; i < masks.Count; i++)
             {
                 masks[i].gameObject.SetActive(i == currentIndex);
+                //maskSwitchSound.Play();
             }
 
             // ✅ Update masked objects if any exist

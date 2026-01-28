@@ -10,6 +10,7 @@ public class Patrol : MonoBehaviour
     [SerializeField] Transform player;
     [SerializeField] float speed = 2f;
     [SerializeField] float detectionRange = 10f;
+    [SerializeField] AudioSource patrolSound;
     int currentWaypointIndex;
     NavMeshAgent agent;
     storm stormScript;
@@ -32,6 +33,7 @@ public class Patrol : MonoBehaviour
 
         if (distanceToPlayer <= detectionRange)
         {
+            patrolSound.Play();
             StartStorming();
             spawnPoint.GetComponent<Spawning>().canSpawn = true;
         }
