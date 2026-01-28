@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-[RequireComponent(typeof(MeshRenderer))]
 public class MaskedObject : MonoBehaviour
 {
+
     [HideInInspector] public List<bool> maskGroups;
     public List<bool> Layer;
     void Start()
@@ -36,7 +36,7 @@ public class MaskedObject : MonoBehaviour
         }
         if (activeMask == -1)
         {
-            shouldRender = true;
+            shouldRender = false;
         }
         else
         {

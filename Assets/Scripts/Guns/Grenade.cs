@@ -19,7 +19,7 @@ public class Grenade : MonoBehaviour
     void Start()
     {
         countdown = timer;
-        camShake = Camera.main.GetComponent<CamShake>();
+        camShake = FindAnyObjectByType<CamShake>();
     }
 
     void Update()
@@ -58,7 +58,7 @@ public class Grenade : MonoBehaviour
                 float distance = Vector3.Distance(hit.transform.position, transform.position);
                 float effect = Mathf.Clamp01(1 - (distance / 5f));
                 agent.Move(pushDir * 10f * effect);
-                StartCoroutine(camShake.Shake(0.3f, 0.4f));
+                StartCoroutine(camShake.Shake(0.1f, 1.2f));
             }
             hit.TryGetComponent<EnemyHealth>(out EnemyHealth enemyHealth);
             if (enemyHealth != null)

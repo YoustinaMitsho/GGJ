@@ -36,6 +36,7 @@ public class GunSystem : MonoBehaviour
     {
         bulletsLeft = magazineSize;
         readyToShoot = true;
+        camShake = FindAnyObjectByType<CamShake>();
     }
     private void Update()
     {
