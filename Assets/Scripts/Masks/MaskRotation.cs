@@ -37,8 +37,16 @@ public class MaskRotation : MonoBehaviour
 
     IEnumerator HideMaskTemporarily()
     {
-        gameObject.SetActive(false);
+        // Hide sprite
+        GetComponent<SpriteRenderer>().enabled = false;
+
+        // Disable trigger so player can't collect again
+        GetComponent<Collider>().enabled = false;
+
         yield return new WaitForSeconds(20f);
-        gameObject.SetActive(true);
+
+        // Show again
+        GetComponent<SpriteRenderer>().enabled = true;
+        GetComponent<Collider>().enabled = true;
     }
 }
