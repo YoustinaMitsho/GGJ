@@ -14,8 +14,13 @@ public class Grenade : MonoBehaviour
     [SerializeField] float radius = 5f;
     [SerializeField] int enemyDamage = 100;
     [SerializeField] float damageDelay = 0.8f;
+    [SerializeField] CamShake camShake;
 
-    void Start() => countdown = timer;
+    void Start()
+    {
+        countdown = timer;
+        camShake = Camera.main.GetComponent<CamShake>();
+    }
 
     void Update()
     {
@@ -53,6 +58,7 @@ public class Grenade : MonoBehaviour
                 float distance = Vector3.Distance(hit.transform.position, transform.position);
                 float effect = Mathf.Clamp01(1 - (distance / 5f));
                 agent.Move(pushDir * 10f * effect);
+                StartCoroutine(camShake.Shake(0.3f, 0.4f));
             }
             hit.TryGetComponent<EnemyHealth>(out EnemyHealth enemyHealth);
             if (enemyHealth != null)

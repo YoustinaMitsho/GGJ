@@ -25,6 +25,8 @@ public class GunSystem : MonoBehaviour
 
     //Graphics
     public GameObject muzzleFlash, bulletHoleGraphic;
+    public LineRenderer tracer;
+
     public CamShake camShake;
     public float camShakeMagnitude, camShakeDuration;
     public TextMeshProUGUI text;
@@ -74,7 +76,7 @@ public class GunSystem : MonoBehaviour
 
 
         //RayCast
-        if (Physics.Raycast(fpsCam.transform.position, direction, out rayHit, range, whatIsEnemy))
+        /*if (Physics.Raycast(fpsCam.transform.position, direction, out rayHit, range, whatIsEnemy))
         {
             Debug.Log(rayHit.collider.name);
 
@@ -82,16 +84,43 @@ public class GunSystem : MonoBehaviour
             if (rayHit.collider.CompareTag("Enemy"))
                 rayHit.collider.GetComponent<EnemyHealth>().TakeDamage(damage);
             Debug.Log("Hit Enemy for " + damage);
+        }*/
+
+        if (Physics.Raycast(fpsCam.transform.position, direction, out rayHit, range))
+        {
+            if (rayHit.collider.CompareTag("Enemy"))
+            {
+                rayHit.collider.GetComponent<EnemyHealth>().TakeDamage(damage);
+                Debug.Log("Hit Enemy for " + damage);
+            }
+
+            // Bullet hole always appears on what you hit
+            Instantiate(bulletHoleGraphic,
+                rayHit.point + rayHit.normal * 0.01f,
+                Quaternion.LookRotation(rayHit.normal));
         }
 
-
         //ShakeCamera
-        camShake.Shake(camShakeDuration, camShakeMagnitude);
+        if (camShake != null)
+            StartCoroutine(camShake.Shake(camShakeMagnitude, camShakeDuration));
 
 
         //Graphics
-        Instantiate(bulletHoleGraphic, rayHit.point, Quaternion.Euler(0, 180, 0));
-        Instantiate(muzzleFlash, attackPoint.position, Quaternion.identity);
+        Instantiate(bulletHoleGraphic, rayHit.point, Quaternion.LookRotation(rayHit.normal));
+        //Instantiate(muzzleFlash, attackPoint.position, Quaternion.identity);
+        GameObject flash = Instantiate(muzzleFlash, attackPoint.position,
+                              attackPoint.rotation, attackPoint);
+
+        Destroy(flash, 0.05f);
+
+        LineRenderer line = Instantiate(tracer, attackPoint.position, Quaternion.identity);
+
+        line.SetPosition(0, attackPoint.position);
+        line.SetPosition(1, rayHit.point);
+
+        Destroy(line.gameObject, 0.05f);
+
+
 
 
         bulletsLeft--;

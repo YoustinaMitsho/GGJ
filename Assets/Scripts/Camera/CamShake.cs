@@ -12,10 +12,7 @@ public class CamShake : MonoBehaviour
 
         while (elapsed < duration)
         {
-            float x = Random.Range(-1f, 1f) * magnitude;
-            float y = Random.Range(-1f, 1f) * magnitude;
-
-            transform.localPosition = new Vector3(x, y, originalPos.z);
+            transform.localPosition = originalPos + Random.insideUnitSphere * magnitude;
 
             elapsed += Time.deltaTime;
 

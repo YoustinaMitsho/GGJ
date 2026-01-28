@@ -128,8 +128,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   explosion_effect: {fileID: 1000013462590818, guid: ecdd96beb7f93494880c052dfccf9dc1, type: 3}
-  power: 10
-  radius: 5
+  power: 8
+  radius: 2
+  enemyDamage: 100
+  damageDelay: 0.8
+  camShake: {fileID: 0}
 --- !u!136 &3824692212977080890
 CapsuleCollider:
   m_ObjectHideFlags: 0
