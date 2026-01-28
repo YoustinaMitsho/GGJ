@@ -23,9 +23,12 @@ public class MaskController : MonoBehaviour
         allMaskedObjects = new List<MaskedObject>(FindObjectsByType<MaskedObject>(0));
     }
 
+    int test = 0;
     void Update()
     {
         CycleMask();
+        test++;
+        //Debug.LogError(test);
     }
 
     public void HasSpawnedSmth()
@@ -64,5 +67,15 @@ public class MaskController : MonoBehaviour
                 maskCameras[i].SetActive(i == currentIndex);
             }
         }
+    }
+
+    void OnDestroy()
+    {
+        cycleMask.Disable();
+    }
+
+    void OnEnable()
+    {
+        cycleMask.Enable();
     }
 }

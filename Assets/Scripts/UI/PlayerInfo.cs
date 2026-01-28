@@ -15,13 +15,8 @@ public class PlayerInfo : MonoBehaviour
     int best_score_int;
     private void Start()
     {
-      
-
-
         myplayer.text = "Player: " + PlayerPrefs.GetString("PlayerName", "Guest");
         MyfirstBestPlayer.text = "Current Best: " + PlayerPrefs.GetString("PlayerName", "Guest");
-        
-        
     }
 
 
@@ -29,14 +24,17 @@ public class PlayerInfo : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        currentScore_int = int.Parse(currentscore.text);
-        best_score_int = int.Parse(best_score.text);
+        if (int.TryParse(currentscore.text, out currentScore_int) &&
+        int.TryParse(best_score.text, out best_score_int))
+        {
+            if (currentScore_int > best_score_int)
+            {
+                best_score_int = currentScore_int;
+                best_score.text = best_score_int.ToString();
 
-        if (currentScore_int > best_score_int) {
-
-            best_score_int = currentScore_int;
-            best_score.text = best_score_int.ToString();
-            MyfirstBestPlayer.text = "Current Best: " + myplayer.text;
+                // This updates the UI to show the current player is now the best
+                MyfirstBestPlayer.text = "Current Best: " + PlayerPrefs.GetString("PlayerName", "Guest");
+            }
         }
     }
 

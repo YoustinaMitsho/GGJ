@@ -14,10 +14,12 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] GameObject gameOverScreen;
     [SerializeField] Camera playerCamera;
     [SerializeField] AudioSource hitsound;
+    [SerializeField] GameObject canvas;
     int currentHealth;
+    bool isDead = false;
     void Awake()
     {
-        //Time.timeScale = 1f;
+        Time.timeScale = 1f;
         gameOverScreen.SetActive(false);
     }
     void Start()
@@ -38,12 +40,14 @@ public class PlayerHealth : MonoBehaviour
     }
     void Die()
     {
+        if (isDead) return;
+        isDead = true;
         Debug.Log("Player has died.");
         Cursor.lockState = CursorLockMode.None;
-        playerCamera.GetComponent<FirstPersonLook>().enabled = false;
+        if (playerCamera != null) playerCamera.GetComponent<FirstPersonLook>().enabled = false;
         GetComponent<FirstPersonMovement>().enabled = false;
         StartCoroutine(GameOverDelay());
-        gameOverScreen.SetActive(true);
+        if (gameOverScreen != null) gameOverScreen.SetActive(true);
         //Time.timeScale = 0f;
     }
 
@@ -85,6 +89,12 @@ public class PlayerHealth : MonoBehaviour
     IEnumerator GameOverDelay()
     {
         yield return new WaitForSeconds(2f);
-        SceneChanger.instance.ChangeScene();
+        if (gameOverScreen != null)
+        {
+            gameOverScreen.SetActive(false);
+        }
+        //gameOverScreen.SetActive(false);
+        Destroy(canvas);
+        UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex - 1);
     }
 }

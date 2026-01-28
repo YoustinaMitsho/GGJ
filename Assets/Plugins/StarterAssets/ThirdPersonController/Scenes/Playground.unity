@@ -6848,6 +6848,7 @@ MonoBehaviour:
   gameOverScreen: {fileID: 1126706057}
   playerCamera: {fileID: 78282576}
   hitsound: {fileID: 508660668}
+  canvas: {fileID: 211654918}
 --- !u!114 &2100429990
 MonoBehaviour:
   m_ObjectHideFlags: 0
